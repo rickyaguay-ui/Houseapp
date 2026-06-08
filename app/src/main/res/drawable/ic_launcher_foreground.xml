@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Outer delicate circular frame line of the sanctuary logo -->
+    <path
+        android:pathData="M 54,16 A 38,38 0 1,1 53.99,16 Z"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:startX="16"
+                android:startY="16"
+                android:endX="92"
+                android:endY="92"
+                android:type="linear">
+                <item android:offset="0" android:color="#F5C87A" />
+                <item android:offset="1" android:color="#8F8474" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Stylized Altar House / Sanctuary Contour -->
+    <path
+        android:pathData="M 32,54 L 54,34 L 76,54 L 70,54 L 70,76 L 38,76 L 38,54 Z"
+        android:strokeWidth="2"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:startX="32"
+                android:startY="34"
+                android:endX="76"
+                android:endY="76"
+                android:type="linear">
+                <item android:offset="0" android:color="#F5C87A" />
+                <item android:offset="1" android:color="#956e30" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Divine Altar Aligned Cross inside the house vector -->
+    <path
+        android:pathData="M 54,42 L 54,68 M 46,50 L 62,50"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:startX="46"
+                android:startY="42"
+                android:endX="62"
+                android:endY="68"
+                android:type="linear">
+                <item android:offset="0" android:color="#F5C87A" />
+                <item android:offset="1" android:color="#FFFFFF" />
+            </gradient>
+        </aapt:attr>
+    </path>
+</vector>

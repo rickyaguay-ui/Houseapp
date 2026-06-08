@@ -1,0 +1,6 @@
+{
+  "name": "THE HOUSE",
+  "description": "An offline-first spiritual sanctuary and predictive state engine with a cinematic entrance and interactive custom rooms.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
