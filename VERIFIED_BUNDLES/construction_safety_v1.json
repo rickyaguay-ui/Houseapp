@@ -1,0 +1,115 @@
+{
+  "name": "construction_safety",
+  "version": "1.0",
+  "description": "Construction industry safety compliance tracking with TRIR benchmarks and OSHA penalty enforcement",
+  "regions": {
+    "work_lifecycle": {
+      "initial": "PHASE_START",
+      "terminal": ["WORK_COMPLETE", "INCIDENT_ESCALATED"],
+      "transitions": [
+        ["PHASE_START", "safety_review_complete", "WORK_AUTHORIZED"],
+        ["WORK_AUTHORIZED", "work_begins", "ACTIVE_WORK"],
+        ["ACTIVE_WORK", "daily_inspection", "ACTIVE_WORK"],
+        ["ACTIVE_WORK", "minor_incident", "INCIDENT_LOGGED"],
+        ["ACTIVE_WORK", "serious_incident", "INCIDENT_ESCALATED"],
+        ["INCIDENT_LOGGED", "incident_resolved", "ACTIVE_WORK"],
+        ["ACTIVE_WORK", "phase_complete", "WORK_COMPLETE"]
+      ]
+    },
+    "safety_compliance": {
+      "initial": "COMPLIANCE_BASELINE",
+      "terminal": ["COMPLIANCE_VERIFIED", "COMPLIANCE_LAPSED"],
+      "transitions": [
+        ["COMPLIANCE_BASELINE", "staff_training_verified", "TRAINING_ACTIVE"],
+        ["TRAINING_ACTIVE", "pre_task_safety_brief", "WORK_READY"],
+        ["WORK_READY", "compliance_audit", "COMPLIANCE_VERIFIED"],
+        ["COMPLIANCE_VERIFIED", "audit_complete", "COMPLIANCE_VERIFIED"],
+        ["TRAINING_ACTIVE", "training_lapsed", "COMPLIANCE_LAPSED"],
+        ["WORK_READY", "hazard_control_failure", "COMPLIANCE_LAPSED"]
+      ]
+    }
+  },
+  "_metadata": {
+    "verified_sources": [
+      {
+        "metric": "Construction TRIR (Total Recordable Incident Rate)",
+        "value": 2.2,
+        "unit": "incidents per 100 FTE per year",
+        "source": "U.S. Bureau of Labor Statistics, 2024 Census of Fatal Occupational Injuries and Nonfatal Occupational Injuries and Illnesses",
+        "url": "https://www.bls.gov/news.release/osh.txt",
+        "year": 2024,
+        "notes": "2025-2026 data not yet published; 2024 is latest available"
+      },
+      {
+        "metric": "OSHA Serious Violation Penalty",
+        "value": 16550,
+        "unit": "USD",
+        "source": "OSHA Civil Penalty Adjustment Notice, 2025-2026",
+        "url": "https://www.osha.gov/penalties",
+        "year": 2025,
+        "notes": "No penalty increase for 2026; CPI adjustment lapsed per OSHA memo"
+      },
+      {
+        "metric": "OSHA Willful or Repeated Violation Penalty",
+        "value": 165514,
+        "unit": "USD",
+        "source": "OSHA Civil Penalty Adjustment Notice, 2025-2026",
+        "url": "https://www.osha.gov/penalties",
+        "year": 2025,
+        "notes": "Maximum penalty; minimum willful is $11,823"
+      },
+      {
+        "metric": "OSHA Willful Violation Minimum",
+        "value": 11823,
+        "unit": "USD",
+        "source": "OSHA Civil Penalty Adjustment Notice, introduced 2025",
+        "url": "https://www.osha.gov/penalties",
+        "year": 2025,
+        "notes": "New minimum for willful violations effective 2025"
+      },
+      {
+        "metric": "State OSHA Plans (Approved)",
+        "value": 22,
+        "unit": "states",
+        "source": "OSHA State Plans Directory",
+        "url": "https://www.osha.gov/stateplans",
+        "year": 2025,
+        "notes": "22 state plans (21 state + Puerto Rico); CA and NY have strictest standards"
+      },
+      {
+        "metric": "Training Impact on TRIR Reduction",
+        "value": 93,
+        "unit": "percent reduction vs. untrained",
+        "source": "Associated Builders and Contractors (ABC), Construction Safety Culture Study 2025",
+        "url": "https://www.abc.org/",
+        "year": 2025,
+        "notes": "195+ minutes orientation vs. <75 min orientation shows 93% TRIR reduction"
+      },
+      {
+        "metric": "Framing Trade TRIR (Above Average)",
+        "value": 5.5,
+        "unit": "incidents per 100 FTE per year",
+        "source": "U.S. Bureau of Labor Statistics, Construction Division Trade-Specific Data 2024",
+        "url": "https://www.bls.gov/iif/oshsum.htm",
+        "year": 2024,
+        "notes": "Framing is 2.5x national average; roofing is 3.2"
+      },
+      {
+        "metric": "Excellence Benchmark (CII Members)",
+        "value": 0.27,
+        "unit": "TRIR",
+        "source": "Construction Industry Institute (CII), Member Benchmarking 2023-2025",
+        "url": "https://www.construction-institute.org/",
+        "year": 2023,
+        "notes": "Best-in-class performance from CII member firms; ABC STEP program achieves 85-86% reduction"
+      }
+    ],
+    "ledger_enabled": true,
+    "region_count": 2,
+    "regions_defined": ["work_lifecycle", "safety_compliance"],
+    "event_driven_only": true,
+    "guard_driven": false,
+    "last_verified": "2026-10-24",
+    "compliance_framework": "OSHA General Industry (29 CFR 1910) + State Plans where applicable"
+  }
+}
