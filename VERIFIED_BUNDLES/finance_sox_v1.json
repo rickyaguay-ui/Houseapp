@@ -1,0 +1,147 @@
+{
+  "name": "finance_sox_icfr",
+  "version": "1.0",
+  "description": "Finance SOX 404 Internal Control over Financial Reporting (ICFR) compliance lifecycle with PCAOB AS 2201 framework",
+  "regions": {
+    "control_lifecycle": {
+      "initial": "FISCAL_YEAR_START",
+      "terminal": ["OPINION_FILED", "DEFICIENCY_DISCLOSED"],
+      "transitions": [
+        ["FISCAL_YEAR_START", "design_controls", "CONTROL_DESIGN"],
+        ["CONTROL_DESIGN", "test_controls", "TESTING"],
+        ["TESTING", "evaluate_findings", "EVALUATION"],
+        ["EVALUATION", "no_issues_found", "REMEDIATION_PLANNING"],
+        ["EVALUATION", "issue_identified", "ISSUE_DOCUMENTED"],
+        ["ISSUE_DOCUMENTED", "control_deficiency", "DEFICIENCY_ASSESSMENT"],
+        ["ISSUE_DOCUMENTED", "material_weakness", "MATERIAL_WEAKNESS_ASSESSMENT"],
+        ["DEFICIENCY_ASSESSMENT", "design_fix", "REMEDIATION_PLANNING"],
+        ["MATERIAL_WEAKNESS_ASSESSMENT", "remediate_weakness", "REMEDIATION_PLANNING"],
+        ["REMEDIATION_PLANNING", "remediate_controls", "REMEDIATION"],
+        ["REMEDIATION", "retest_controls", "TESTING"],
+        ["TESTING", "controls_effective", "MANAGEMENT_ASSESSMENT"],
+        ["MANAGEMENT_ASSESSMENT", "prepare_documentation", "OPINION_PREPARATION"],
+        ["OPINION_PREPARATION", "file_opinion", "OPINION_FILED"],
+        ["ISSUE_DOCUMENTED", "disclosure_only", "DEFICIENCY_DISCLOSED"]
+      ]
+    },
+    "filer_compliance": {
+      "initial": "FILER_CATEGORY_UNKNOWN",
+      "terminal": ["FILING_DEADLINE_MET", "FILING_DEADLINE_MISSED"],
+      "transitions": [
+        ["FILER_CATEGORY_UNKNOWN", "classify_filer", "FILER_CLASSIFIED"],
+        ["FILER_CLASSIFIED", "accelerated_filer", "ACCELERATED_TIMELINE"],
+        ["FILER_CLASSIFIED", "large_accelerated_filer", "LARGE_ACCELERATED_TIMELINE"],
+        ["FILER_CLASSIFIED", "non_accelerated_filer", "NON_ACCELERATED_TIMELINE"],
+        ["ACCELERATED_TIMELINE", "file_10k", "FILING_DEADLINE_MET"],
+        ["LARGE_ACCELERATED_TIMELINE", "file_10k", "FILING_DEADLINE_MET"],
+        ["NON_ACCELERATED_TIMELINE", "file_10k", "FILING_DEADLINE_MET"],
+        ["ACCELERATED_TIMELINE", "file_late", "FILING_DEADLINE_MISSED"],
+        ["LARGE_ACCELERATED_TIMELINE", "file_late", "FILING_DEADLINE_MISSED"],
+        ["NON_ACCELERATED_TIMELINE", "file_late", "FILING_DEADLINE_MISSED"]
+      ]
+    }
+  },
+  "_metadata": {
+    "verified_sources": [
+      {
+        "metric": "Material Weakness Definition (PCAOB AS 2201)",
+        "value": "Reasonable possibility of material misstatement",
+        "type": "qualitative",
+        "source": "PCAOB Auditing Standard No. 2201, Appendix A, Definition of Material Weakness",
+        "url": "https://pcaobus.org/standards/auditing/pages/as2201.aspx",
+        "year": 2025,
+        "notes": "No quantitative threshold; auditor judgment required. AS 2201 amendments effective December 15, 2026."
+      },
+      {
+        "metric": "Significant Deficiency Definition (PCAOB AS 2201)",
+        "value": "Important enough to merit attention by those charged with governance",
+        "type": "qualitative",
+        "source": "PCAOB Auditing Standard No. 2201, Appendix A, Definition of Significant Deficiency",
+        "url": "https://pcaobus.org/standards/auditing/pages/as2201.aspx",
+        "year": 2025,
+        "notes": "Guidance framework; requires professional judgment and context"
+      },
+      {
+        "metric": "Accelerated Filer Threshold — Public Float",
+        "value": "$75M to $699M",
+        "unit": "USD public float",
+        "source": "SEC Regulation S-X, Rule 1-02(w), Definition of Accelerated Filer",
+        "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany",
+        "year": 2025,
+        "notes": "Also requires $100M+ revenue. Determined as of June 30 of prior fiscal year."
+      },
+      {
+        "metric": "Large Accelerated Filer Threshold — Public Float",
+        "value": "$700M or more",
+        "unit": "USD public float",
+        "source": "SEC Regulation S-X, Rule 1-02(x), Definition of Large Accelerated Filer",
+        "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany",
+        "year": 2025,
+        "notes": "Also requires $100M+ revenue. Stricter audit requirements than accelerated filers."
+      },
+      {
+        "metric": "Non-Accelerated Filer 404(b) Exemption",
+        "value": "Exempt from auditor attestation on ICFR",
+        "type": "regulatory_exemption",
+        "source": "SEC Regulation S-X, Rule 1-02(q), Definition of Non-Accelerated Filer; SOX 404(b) exemption",
+        "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany",
+        "year": 2025,
+        "notes": "Still required to do management's assessment under 404(a); auditor attestation (404(b)) waived"
+      },
+      {
+        "metric": "Accelerated Filer 10-K Filing Deadline",
+        "value": 60,
+        "unit": "days after fiscal year-end",
+        "source": "SEC Form 10-K Instructions, Item 1 (General), Filing Deadline",
+        "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany",
+        "year": 2025,
+        "notes": "Applies to accelerated and large accelerated filers only"
+      },
+      {
+        "metric": "Non-Accelerated Filer 10-K Filing Deadline",
+        "value": 90,
+        "unit": "days after fiscal year-end",
+        "source": "SEC Form 10-K Instructions, Item 1 (General), Filing Deadline",
+        "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany",
+        "year": 2025,
+        "notes": "Extended deadline for non-accelerated and smaller reporting companies"
+      },
+      {
+        "metric": "Section 906 Certification Penalties — Knowing Violation",
+        "value": "Up to 10 years imprisonment and/or $1,000,000 fine",
+        "type": "criminal_penalty",
+        "source": "Sarbanes-Oxley Act of 2002, Section 906(c)",
+        "url": "https://www.law.cornell.edu/uscode/text/15/7906",
+        "year": 2002,
+        "notes": "Applies to CFO/CEO false certifications. Effective 2002; still current law 2025-2026."
+      },
+      {
+        "metric": "Section 906 Certification Penalties — Willful Violation",
+        "value": "Up to 20 years imprisonment and/or $5,000,000 fine",
+        "type": "criminal_penalty",
+        "source": "Sarbanes-Oxley Act of 2002, Section 906(c)",
+        "url": "https://www.law.cornell.edu/uscode/text/15/7906",
+        "year": 2002,
+        "notes": "Enhanced penalties for intentional false certifications. Effective 2002; still current 2025-2026."
+      },
+      {
+        "metric": "PCAOB AS 2201 Amendments Effective Date",
+        "value": "December 15, 2026",
+        "type": "regulatory_milestone",
+        "source": "PCAOB Release No. 2024-008, Auditing Standard No. 2201",
+        "url": "https://pcaobus.org/standards/auditing/pages/as2201.aspx",
+        "year": 2026,
+        "notes": "New amendments to AS 2201 become effective mid-December 2026; requires compliance planning now"
+      }
+    ],
+    "ledger_enabled": true,
+    "region_count": 2,
+    "regions_defined": ["control_lifecycle", "filer_compliance"],
+    "event_driven_only": true,
+    "guard_driven": false,
+    "last_verified": "2026-10-24",
+    "compliance_framework": "Sarbanes-Oxley Act of 2002 (SOX), Section 404 (Internal Control over Financial Reporting)",
+    "regulatory_bodies": ["PCAOB (Public Company Accounting Oversight Board)", "SEC (Securities and Exchange Commission)"],
+    "note_on_materiality": "NO quantitative threshold exists for material weakness. Definition is 'reasonable possibility of material misstatement' per PCAOB AS 2201. Auditor judgment required; thresholds vary by context."
+  }
+}
