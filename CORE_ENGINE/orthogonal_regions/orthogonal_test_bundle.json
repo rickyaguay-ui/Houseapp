@@ -1,0 +1,21 @@
+{
+  "name": "maintenance_orthogonal_v1",
+  "regions": {
+    "physical_work": {
+      "initial": "NOT_STARTED",
+      "terminal": ["WORK_DONE"],
+      "transitions": [
+        ["NOT_STARTED", "technician_arrives", "IN_PROGRESS"],
+        ["IN_PROGRESS", "work_completed", "WORK_DONE"]
+      ]
+    },
+    "paperwork": {
+      "initial": "PENDING",
+      "terminal": ["FILED"],
+      "transitions": [
+        ["PENDING", "permit_signed", "SIGNED"],
+        ["SIGNED", "permit_filed", "FILED"]
+      ]
+    }
+  }
+}
