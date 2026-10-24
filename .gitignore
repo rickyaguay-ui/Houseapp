@@ -20,3 +20,4 @@ debug.keystore
 # Research and reports (do not commit)
 research_notes/
 reports/
+__pycache__/
